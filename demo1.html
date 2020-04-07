@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>目标元素的交叉状态测试</title>
+    <meta
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
+      name="viewport"
+    />
+  </head>
+  <style>
+    html,
+    body {
+      height: 100%;
+    }
+
+    .unit {
+      border: 1px solid black;
+      height: 200px;
+      margin: 40px 0px;
+    }
+
+    #nb {
+      background: #ccc;
+    }
+
+    #note {
+      position: fixed;
+      left: 0px;
+      right: 0px;
+      top: 0px;
+      text-align: center;
+      font-size: 14px;
+      background: #fff;
+    }
+
+    .container {
+      max-width: 540px;
+      margin: 0px auto;
+    }
+  </style>
+
+  <body>
+    <div class="container" id="app">
+      <div id="note">目标没有出现</div>
+
+      <div class="unit"></div>
+      <div class="unit"></div>
+      <div class="unit"></div>
+      <div class="unit"></div>
+      <div class="unit"></div>
+      <div class="unit"></div>
+      <div class="unit" id="nb"></div>
+      <div class="unit"></div>
+    </div>
+  </body>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var io = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) {
+          document.getElementById("note").innerText = "目标元素出现了";
+        } else {
+          document.getElementById("note").innerText = "目标没有出现";
+        }
+      });
+      const target = document.getElementById("nb");
+      io.observe(target);
+    });
+  </script>
+</html>
