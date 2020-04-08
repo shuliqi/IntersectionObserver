@@ -16,11 +16,11 @@
   <body>
     <div class="girls-list-wrap">
       <img
-        data-src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586279383101&di=6fb0c790846f636742f51661ce128fc6&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F451426e434b1e2d5178c16ae9036cbff81c97c0367970-I9l5Vi_fw658"
+        data-src="https://pics7.baidu.com/feed/95eef01f3a292df5775bf609ab4d266635a87390.jpeg?token=1fcaaeeb022227cec946b748b3b475de"
         src="https://img.alicdn.com/tps/i3/T1QYOyXqRaXXaY1rfd-32-32.gif"
       />
       <img
-        data-src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586279383101&di=3fe96d9dd673a4d029cf1a8602f70d3f&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2Fefa38a1e72973788a8af04e4a7947af6081edf6cfa255-evDnZD_fw658"
+        data-src="https://pics2.baidu.com/feed/55e736d12f2eb93886f49df2cfc6ff33e4dd6fbb.jpeg?token=3685b7bbb1d73f7623495196244f1aa2&s=E523B0564CE908827C927FC90300A09C"
         src="https://img.alicdn.com/tps/i3/T1QYOyXqRaXXaY1rfd-32-32.gif"
       />
 
@@ -67,16 +67,19 @@
   </body>
   <script>
     const io = new IntersectionObserver(callback);
-    let imgs = document.querySelectorAll("[data-src]");
+    let imgs = document.querySelectorAll("[data-src]"); // 将图片的真实url设置为data-src src属性为占位图 元素可见时候替换src
     function callback(entries) {
       entries.forEach((item) => {
+        // 遍历entries数组
         if (item.isIntersecting) {
-          item.target.src = item.target.dataset.src;
-          io.unobserve(item.target);
+          // // 当前元素可见
+          item.target.src = item.target.dataset.src; // 替换src
+          io.unobserve(item.target); // 停止观察当前元素 避免不可见时候再次调用callback函数
         }
       });
     }
 
+    // io.observe接受一个DOM元素，添加多个监听 使用forEach
     imgs.forEach((item) => {
       io.observe(item);
     });
