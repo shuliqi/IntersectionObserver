@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>无限加载</title>
+    <meta
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
+      name="viewport"
+    />
+  </head>
+  <style>
+    html,
+    body {
+      height: 100%;
+      font-size: 20px;
+    }
+
+    #loading {
+      text-align: center;
+    }
+
+    .unit {
+      height: 120px;
+      border: 1px solid black;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 300px;
+      height: 500px;
+      margin: 0px auto;
+      overflow: auto;
+      border: 5px solid #000;
+    }
+  </style>
+
+  <body>
+    <div class="container" id="app">
+      <div id="loading">
+        加载中....
+      </div>
+    </div>
+  </body>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var sum = 1;
+      var loadData = function () {
+        var fragment = document.createDocumentFragment();
+        for (var i = 0; i < 10; i++) {
+          var div = document.createElement("div");
+          div.className = "unit";
+          div.innerText = `第 ${sum} 个数据`;
+          fragment.appendChild(div);
+          sum++;
+        }
+        document
+          .getElementById("app")
+          .insertBefore(fragment, document.getElementById("loading"));
+      };
+      var io = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) {
+          // 如果loading元素不可见，就加载数据
+          loadData();
+        }
+      });
+      io.observe(document.getElementById("loading"));
+    });
+  </script>
+</html>
